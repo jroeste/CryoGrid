@@ -3,6 +3,11 @@
 % NOTE: this class also contains code related to the free water freeze curve, 
 % as well as functions computing thermal conductivity  
 % S. Westermann, October 2020
+
+%TODO_JR: Will update this file to include get_derivative_lwr(ground). Here the physics
+%           will be included.
+%            L_out = 2*sigma*T**4. L_in(cell_i) = - L_out(cell_i-1) + L_out(celli+1). 
+%           Consider time dependence as well. 
 %========================================================================
 
 classdef HEAT_CONDUCTION < BASE
@@ -25,6 +30,13 @@ classdef HEAT_CONDUCTION < BASE
             
             ground.TEMP.d_energy = ground.TEMP.d_energy + d_energy;
         end
+        %energy from longwave radiation between grid cells
+        function ground = get_derivative_lwr(ground)
+            % L_out = 2*sigma*T**4. L_in(cell_i) = - L_out(cell_i-1) + L_out(celli+1). 
+            % Consider time dependence as well. 
+            ground.TEMP.d_energy = ground.TEMP.d_energy + d_energy;
+        end
+
         
         %-----------timesteps----------
         %limit maximum energy change between timesteps
