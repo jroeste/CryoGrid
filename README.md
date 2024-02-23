@@ -21,4 +21,5 @@ TODO:
 * Explanation of "factor"
 * Explanation of the assumptions. Geometric/blocky structure can be assumed to take a value between 0 and 1. 1 means a black body radiates long-waves, 0 means no long-wave radiation
 * Make presentation
-  
+* Make change-log
+* I added data and CG_run.
