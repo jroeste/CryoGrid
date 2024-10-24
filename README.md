@@ -37,7 +37,7 @@ In this approach, we follow the approach of  Fillion et al. (2011)  with the the
 
 The thermal conductivity vector will then be given by 
 
-$$ \vec{dE_i} = 4 C(\varepsilon) \vec{\rho}_i \sigma_\mathit{SB} \delta_{G}(\vec{T}_i+273.15)^3 $$
+$$ dE_i = 4 C(\varepsilon) {\rho}_i \sigma_\mathit{SB} \delta_{G}({T}_i+273.15)^3 $$
 
 where $\vec{\rho}$ is the porosity in each grid cell, $\sigma_{SB}$ is the Stefan Boltzmann's constant and $\delta_{G}$ is a measure for the size of the blocks, e.g. the diameter in meter. $C(\varepsilon)$ is a parameter describing the emissivity of the particles that we will not go into details on in this work.
 This thermal conductivity contribution is added in the Cryogrid model framework in the part where the conductivity mixing is calculated and a (possibly spatially varying) grain size parameter is set up for the stratigraphy.
