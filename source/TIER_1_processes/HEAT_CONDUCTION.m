@@ -19,25 +19,44 @@ classdef HEAT_CONDUCTION < BASE
         function ground = get_derivative_energy(ground)
             fluxes = (ground.STATVAR.T(1:end-1) - ground.STATVAR.T(2:end)) .* ground.STATVAR.thermCond(1:end-1) .* ground.STATVAR.thermCond(2:end) ./...
                 (ground.STATVAR.thermCond(1:end-1).* ground.STATVAR.layerThick(2:end)./2 +  ground.STATVAR.thermCond(2:end).* ground.STATVAR.layerThick(1:end-1)./2 );
-            
-            fluxes = fluxes .*(ground.STATVAR.area(1:end-1) + ground.STATVAR.area(2:end))./2; %[J/sec]
-            
+            fluxes = - fluxes .*(ground.STATVAR.area(1:end-1) + ground.STATVAR.area(2:end))./2; %[J/sec]
+
             d_energy=ground.STATVAR.energy.*0;
             
-            d_energy(1) =  - fluxes(1);
-            d_energy(2:end-1) = fluxes(1:end-1) - fluxes(2:end);
-            d_energy(end) =  fluxes(end);
-            
+            d_energy(1) =   fluxes(1);
+            d_energy(2:end-1) = - fluxes(1:end-1) + fluxes(2:end);
+            d_energy(end) =  - fluxes(end);
+
             ground.TEMP.d_energy = ground.TEMP.d_energy + d_energy;
-        end
-        %energy from longwave radiation between grid cells
-        function ground = get_derivative_lwr(ground)
-            % L_out = 2*sigma*T**4. L_in(cell_i) = - L_out(cell_i-1) + L_out(celli+1). 
-            % Consider time dependence as well. 
-            ground.TEMP.d_energy = ground.TEMP.d_energy + d_energy;
+            ground.TEMP.d_energy_conduction = d_energy;
         end
 
-        
+
+
+        % %energy fluxes from longwave radiation between grid cells
+        % function ground = get_derivative_energy_lwr(ground)
+
+        %     % Approach 1 - 
+            
+        %     % potential void space
+        %     saturation = ground.STATVAR.waterIce ./ (ground.STATVAR.layerThick .* ground.STATVAR.area - ground.STATVAR.organic - ground.STATVAR.mineral);
+
+        %     fluxes = double(saturation(1:end-1) < 0.5 | saturation(2:end) < 0.5) .* double (ground.STATVAR.grain_size(1:end-1) > 0.2 | ground.STATVAR.grain_size(2:end) > 0.2) .* ground.PARA.efficiency_longwave.* ground.CONST.sigma .* ((ground.STATVAR.T(1:end-1)+ 273.15).^4 - (ground.STATVAR.T(2:end)+ 273.15).^4);
+            
+        %     % Correct for area
+        %     fluxes = - fluxes .*(ground.STATVAR.area(1:end-1) + ground.STATVAR.area(2:end))./2; %[J/sec]
+            
+        %     d_energy=ground.STATVAR.energy.*0;
+            
+        %     d_energy(1) =   fluxes(1);
+        %     d_energy(2:end-1) = - fluxes(1:end-1) + fluxes(2:end);
+        %     d_energy(end) =  - fluxes(end);
+            
+        %     ground.TEMP.d_energy = ground.TEMP.d_energy + d_energy;
+        %     ground.TEMP.d_energy_lwr = d_energy;
+        % end
+
+         
         %-----------timesteps----------
         %limit maximum energy change between timesteps
         function timestep = get_timestep_heat_coduction(ground)  
@@ -101,7 +120,19 @@ classdef HEAT_CONDUCTION < BASE
             ground.STATVAR.thermCond = (water.* ground.CONST.k_w.^0.5 + ice.* ground.CONST.k_i.^0.5 ...
                 + mineral.* ground.CONST.k_m.^0.5 + organic.* ground.CONST.k_o.^0.5 + air.* ground.CONST.k_a.^0.5).^2;
         end
-        
+
+        function ground = conductivity_mixing_squares_lwr(ground)
+           
+            % Get the conductivity mixing from water/ice/mineral/org/air and calculate the thermal conductivity.
+            ground = conductivity_mixing_squares(ground);
+     
+            % Calculate potential thermal conductivity from porosity
+            var_porosity = (ground.STATVAR.layerThick .* ground.STATVAR.area - ground.STATVAR.organic - ground.STATVAR.mineral)./(ground.STATVAR.layerThick .* ground.STATVAR.area);  
+            thermCond_lwr = ground.PARA.efficiency_longwave.*4.*var_porosity.*ground.CONST.sigma.*ground.STATVAR.grain_size.*(ground.STATVAR.T+273.15).^3;
+            
+           ground.STATVAR.thermCond = ground.STATVAR.thermCond + thermCond_lwr;
+        end
+
         function ground = conductivity_mixing_squares_Xice(ground)
             water = (ground.STATVAR.water + ground.STATVAR.Xwater)./ground.STATVAR.layerThick ./ ground.STATVAR.area;
             ice = (ground.STATVAR.ice + ground.STATVAR.Xice)./ ground.STATVAR.layerThick./ ground.STATVAR.area;
