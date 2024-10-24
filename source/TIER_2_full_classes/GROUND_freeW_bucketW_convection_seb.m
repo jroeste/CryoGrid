@@ -28,7 +28,7 @@ classdef GROUND_freeW_bucketW_convection_seb < SEB & HEAT_CONDUCTION & WATER_FLU
             
             ground.PARA.dt_max = [];  %maximum possible timestep [sec]
             ground.PARA.dE_max = [];  %maximum possible energy change per timestep [J/m3]
-            
+            ground.PARA.efficiency_longwave = []; % read automativally from excelfile. blackbody mellom 2 lag, ingen distance, eff=1.
         end
         
         function ground = provide_STATVAR(ground)
@@ -155,6 +155,12 @@ classdef GROUND_freeW_bucketW_convection_seb < SEB & HEAT_CONDUCTION & WATER_FLU
             ground = get_derivative_energy(ground);
             ground = get_derivative_air_convection_Darcy_Weisbach(ground);
             ground = get_derivative_water2(ground);
+
+            % LWR approach 1: 
+            % For approach 1 we add lwr energy to the ground in this function.
+            % Comment in the following term:
+
+            %ground = get_derivative_energy_lwr(ground);
         end
         
         function timestep = get_timestep(ground, tile)  %could involve check for several state variables
@@ -212,7 +218,11 @@ classdef GROUND_freeW_bucketW_convection_seb < SEB & HEAT_CONDUCTION & WATER_FLU
         end
         
         function ground = conductivity(ground)
-            ground = conductivity_mixing_squares(ground);
+            % LWR approach 2: 
+            % This function includes the long-wave radiation term 
+            %   for computing the thermal conductivity. (HEAT_CONDUCTION)
+            ground = conductivity_mixing_squares_lwr(ground); 
+            %ground = conductivity_mixing_squares(ground);
         end
         
         function ground = permeability_air(ground)
