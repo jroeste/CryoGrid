@@ -56,16 +56,21 @@ This thermal conductivity contribution is added in the Cryogrid model framework 
 Fillion, M.-H., J. Côté, and J.-M. Konrad (2011). “Thermal radiation and conduction properties of materials ranging
 from sand to rock-fill”. In: Canadian Geotechnical Journal 48.4, pp. 532–542. ISSN: 0008-3674. DOI: 10.1139/
 t10-093.
+
 Kunii, D. and J. M. Smith (1960). “Heat transfer characteristics of porous rocks”. In: AIChE Journal 6.1, pp. 71–78.
 ISSN: 1547-5905. DOI: 10.1002/aic.690060115.
+
 Renette, C. et al. (2023). “Simulating the effect of subsurface drainage on the thermal regime and ground ice in
 blocky terrain in Norway”. In: Earth Surface Dynamics 11.1, pp. 33–50. ISSN: 2196-6311. DOI: 10.5194/esurf-
 11-33-2023.
+
 Scherler, M. et al. (2014). “A two-sided approach to estimate heat transfer processes within the active layer of the
 Murtèl–Corvatsch rock glacier”. In: Earth Surface Dynamics 2.1, pp. 141–154. ISSN: 2196-6311. DOI: 10.5194/
 esurf-2-141-2014.
+
 Tien, C. L. (1988). “Thermal Radiation in Packed and Fluidized Beds”. In: Journal of Heat Transfer 110.4, pp. 1230–
 1242. ISSN: 0022-1481, 1528-8943. DOI: 10.1115/1.3250623.
+
 Westermann, S. et al. (2023). “The CryoGrid community model (version 1.0) – a multi-physics toolbox for climate-
 driven simulations in the terrestrial cryosphere”. In: Geoscientific Model Development 16.9, pp. 2607–2647. ISSN:
 1991-959X. DOI: 10.5194/gmd-16-2607-2023.
