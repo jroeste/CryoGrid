@@ -4,7 +4,15 @@ This is the community version of *CryoGrid*, a numerical model to investigate la
 
 *Note: This is the latest development of the CryoGrid model family. It comprises the functionalities of previous versions including [CryoGrid3](https://github.com/CryoGrid/CryoGrid3), which is no longer encouraged to be used.*
 
+## Documentation
+A manuscript "The CryoGrid community model - a multi-physics toolbox for climate-driven simulations in the terrestrial cryosphere" has been submitted to the journal  Geoscientific Model Development which contains a description of the model and instructions to run it (Supplements 1, 3).
+
+## Getting started
+Both [CryoGridCommunity_source](https://github.com/CryoGrid/CryoGridCommunity_source) and [CryoGridCommunity_run](https://github.com/CryoGrid/CryoGridCommunity_run) are required. See [CryoGridCommunity_run](https://github.com/CryoGrid/CryoGridCommunity_run) for details.
+
+
 ### This fork
+
 In this work we are interested in incorporating the longwave radiation of blocky fields into the CryoGrid model. We expect the temperatures to be higher, getting a deeper active layer.
 
 #### Remaining TODOs
@@ -45,6 +53,7 @@ This thermal conductivity contribution is added in the Cryogrid model framework 
 
 
 ### References
+
 Fillion, M.-H., J. Côté, and J.-M. Konrad (2011). “Thermal radiation and conduction properties of materials ranging
 from sand to rock-fill”. In: Canadian Geotechnical Journal 48.4, pp. 532–542. ISSN: 0008-3674. DOI: 10.1139/
 t10-093.
@@ -68,10 +77,3 @@ driven simulations in the terrestrial cryosphere”. In: Geoscientific Model Dev
 1991-959X. DOI: 10.5194/gmd-16-2607-2023.
 
 
-## Documentation
-
-A manuscript "The CryoGrid community model - a multi-physics toolbox for climate-driven simulations in the terrestrial cryosphere" has been submitted to the journal  Geoscientific Model Development which contains a description of the model and instructions to run it (Supplements 1, 3).
-
-## Getting started
-
-Both [CryoGridCommunity_source](https://github.com/CryoGrid/CryoGridCommunity_source) and [CryoGridCommunity_run](https://github.com/CryoGrid/CryoGridCommunity_run) are required. See [CryoGridCommunity_run](https://github.com/CryoGrid/CryoGridCommunity_run) for details.
